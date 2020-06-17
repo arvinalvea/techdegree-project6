@@ -34,17 +34,43 @@ function addPhraseToDisplay (arr) {
 
 }
 
+// // Check if a letter is in the phrase
+function checkLetter(button) {
+    const letters = document.querySelectorAll('.letter');
+    const match = null;
+    let chosenLetter = button.textContent.toUpperCase();
+    console.log(button.textContent);
+    for (let i = 0; i < letters.length; i++) {
+        console.log(letters[i]);
+        if (chosenLetter === letters[i].textContent) {
+            letters[i].className += 'show';
+            match = letters[i].textContent;
+        }
+        return match;
+    }
+}
+
 let phraseToGuess = getRandomPhraseAsArray(phrases);
 addPhraseToDisplay(phraseToGuess);
 
+// Listen for the start game button to be pressed
+startButton.addEventListener('click', (e) => {
+    e.target.parentNode.style.display = 'none';
+});
 
 
+qwerty.addEventListener('click', (e) => {
+    if (e.target.tagName === 'BUTTON' && e.target.getAttribute !== 'disabled') {
+        const button = e.target;
+        let letterFound = null;
+        button.className = 'chosen';
+        button.setAttribute('disabled', true);
+        letterFound = checkLetter(button);
 
-// // Check if a letter is in the phrase
-// function checkLetter(button) {
+    }
+});
 
 
-// }
 
 // // Check if the game has been or lost
 // const checkWin = () => {
@@ -52,12 +78,6 @@ addPhraseToDisplay(phraseToGuess);
 
 // }
 
-
-// Listen for the start game button to be pressed
-startButton.addEventListener('click', (e) => {
-    e.target.style.display = 'none';
-
-});
 
 // // Listen for the onscreen keyboard to be clicked
 // qwerty.addEventListener('click', e => {

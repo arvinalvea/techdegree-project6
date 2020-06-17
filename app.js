@@ -12,23 +12,36 @@ let phrases = [
 
 // Return a random phrase from an array
 function getRandomPhraseAsArray (arr) {
-const index = Math.floor(Math.random() * arr.length);
-const randomPhrase = arr[index];
-return randomPhrase;
+    const index = Math.floor(Math.random() * arr.length);
+    const randomPhrase = arr[index].split("");
+    return randomPhrase;
 }
 
-let test = getRandomPhraseAsArray(phrases);
-console.log(test);
-
 // // Adds the letters of a string to the display
-// const addPhraseToDisplay = arr => {
+function addPhraseToDisplay (arr) {
+
+    for (let i = 0; i < arr.length; i++) {
+        const li = document.createElement('li');
+        const character = arr[i];
+        const ul = document.querySelector('#phraseList');
+        li.appendChild(document.createTextNode(character));
+        console.log(li);
+        ul.appendChild(li);
+        if (character !== " ") {
+            li.className = 'letter';
+        } 
+    }
+
+}
+
+let phraseToGuess = getRandomPhraseAsArray(phrases);
+addPhraseToDisplay(phraseToGuess);
 
 
-// }
 
 
 // // Check if a letter is in the phrase
-// const checkLetter = button => {
+// function checkLetter(button) {
 
 
 // }
@@ -40,11 +53,11 @@ console.log(test);
 // }
 
 
-// // Listen for the start game button to be pressed
-// startButton.addEventListener('click', (e) => {
-//     e.target.style.display = 'none';
+// Listen for the start game button to be pressed
+startButton.addEventListener('click', (e) => {
+    e.target.style.display = 'none';
 
-// });
+});
 
 // // Listen for the onscreen keyboard to be clicked
 // qwerty.addEventListener('click', e => {

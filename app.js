@@ -1,3 +1,5 @@
+//---------------------- Variables ----------------------//
+
 const qwerty = document.querySelector('#qwerty');
 const phrase = document.querySelector('#phrase');
 const startButton = document.querySelector('.btn__reset');
@@ -10,6 +12,8 @@ let phrases = [
     'BREAK THE ICE'
 ]
 
+//---------------------- Functions ----------------------//
+
 // Return a random phrase from an array
 function getRandomPhraseAsArray (arr) {
     const index = Math.floor(Math.random() * arr.length);
@@ -17,9 +21,8 @@ function getRandomPhraseAsArray (arr) {
     return randomPhrase;
 }
 
-// // Adds the letters of a string to the display
+// Adds the letters of a string to the display
 function addPhraseToDisplay (arr) {
-
     for (let i = 0; i < arr.length; i++) {
         const li = document.createElement('li');
         const character = arr[i];
@@ -33,7 +36,6 @@ function addPhraseToDisplay (arr) {
             li.className = 'space';
         }
     }
-
 }
 
 // // Check if a letter is in the phrase
@@ -53,11 +55,32 @@ function checkLetter(button) {
 }
 
 function changeHeart () {
-    const triesLi = document.querySelectorAll(".tries");
+    const tries = document.querySelectorAll(".tries");
     const loseHeart = document.querySelectorAll(".tries img");
     loseHeart[0].src = "images/lostHeart.png";
-    triesLi[0].className = "";
+    tries[0].className = "";
 }
+
+// Check if the game has been or lost
+const checkWin = () => {
+    let shownLetters = document.querySelectorAll('.show');
+    const letters = document.querySelectorAll('.letter');
+    const overlay = document.querySelector('#overlay');
+    const title = document.querySelector('.title');
+    if (shownLetters.length === letters.length) {
+        overlay.className += ' win';
+        title.textContent = 'You won!';
+        overlay.style.display = 'flex';
+    }
+    if (missed > 4) {
+        overlay.className += ' lose';
+        title.textContent = 'You lost!';
+        overlay.style.display = 'flex';
+    }
+
+}
+
+//---------------------- Main ----------------------//
 
 let phraseToGuess = getRandomPhraseAsArray(phrases);
 addPhraseToDisplay(phraseToGuess);
@@ -67,7 +90,7 @@ startButton.addEventListener('click', (e) => {
     e.target.parentNode.style.display = 'none';
 });
 
-
+// // Listen for the onscreen keyboard to be clicked
 qwerty.addEventListener('click', (e) => {
     if (e.target.tagName === 'BUTTON' && e.target.getAttribute !== 'disabled') {
         const button = e.target;
@@ -79,20 +102,12 @@ qwerty.addEventListener('click', (e) => {
             missed += 1;
             changeHeart();
         }
+        checkWin();
     }
 });
 
 
 
-// // Check if the game has been or lost
-// const checkWin = () => {
 
 
-// }
 
-
-// // Listen for the onscreen keyboard to be clicked
-// qwerty.addEventListener('click', e => {
-
-
-// });

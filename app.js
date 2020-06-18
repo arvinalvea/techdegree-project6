@@ -29,7 +29,9 @@ function addPhraseToDisplay (arr) {
         ul.appendChild(li);
         if (character !== " ") {
             li.className = 'letter';
-        } 
+        } else {
+            li.className = 'space';
+        }
     }
 
 }
@@ -37,17 +39,17 @@ function addPhraseToDisplay (arr) {
 // // Check if a letter is in the phrase
 function checkLetter(button) {
     const letters = document.querySelectorAll('.letter');
-    const match = null;
+    let match = null;
     let chosenLetter = button.textContent.toUpperCase();
     console.log(button.textContent);
     for (let i = 0; i < letters.length; i++) {
         console.log(letters[i]);
         if (chosenLetter === letters[i].textContent) {
-            letters[i].className += 'show';
+            letters[i].className += ' show';
             match = letters[i].textContent;
         }
-        return match;
     }
+    return match;
 }
 
 let phraseToGuess = getRandomPhraseAsArray(phrases);

@@ -52,6 +52,13 @@ function checkLetter(button) {
     return match;
 }
 
+function changeHeart () {
+    const triesLi = document.querySelectorAll(".tries");
+    const loseHeart = document.querySelectorAll(".tries img");
+    loseHeart[0].src = "images/lostHeart.png";
+    triesLi[0].className = "";
+}
+
 let phraseToGuess = getRandomPhraseAsArray(phrases);
 addPhraseToDisplay(phraseToGuess);
 
@@ -68,7 +75,10 @@ qwerty.addEventListener('click', (e) => {
         button.className = 'chosen';
         button.setAttribute('disabled', true);
         letterFound = checkLetter(button);
-
+        if (letterFound === null) {
+            missed += 1;
+            changeHeart();
+        }
     }
 });
 

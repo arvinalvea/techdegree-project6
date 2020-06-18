@@ -95,7 +95,12 @@ button {
 .show {
   color: #000;
   background-color: #76CE82;
+  transition: all 1s ease;
 }
+
+/* .show:enabled {
+  font-size: 36px;
+} */
 
 /* Keyboard */
 

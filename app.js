@@ -28,8 +28,8 @@ function addPhraseToDisplay (arr) {
         const li = document.createElement('li');
         const character = arr[i];
         const ul = document.querySelector('#phraseList');
+
         li.appendChild(document.createTextNode(character));
-        console.log(li);
         ul.appendChild(li);
         if (character !== " ") {
             li.className = 'letter';
@@ -44,9 +44,8 @@ function checkLetter(button) {
     const letters = document.querySelectorAll('.letter');
     let match = null;
     let chosenLetter = button.textContent.toUpperCase();
-    console.log(button.textContent);
+
     for (let i = 0; i < letters.length; i++) {
-        console.log(letters[i]);
         if (chosenLetter === letters[i].textContent) {
             letters[i].className += ' show';
             match = letters[i].textContent;
@@ -59,6 +58,7 @@ function checkLetter(button) {
 function changeHeart () {
     const tries = document.querySelectorAll('.tries');
     const heart = document.querySelectorAll('.tries img');
+
     heart[0].src = 'images/lostHeart.png';
     tries[0].className = "lostHeart";
 }
@@ -99,6 +99,7 @@ const checkWin = () => {
     const letters = document.querySelectorAll('.letter');
     const overlay = document.querySelector('#overlay');
     const title = document.querySelector('.title');
+
     if (shownLetters.length === letters.length) {
         overlay.className = 'win';
         title.textContent = 'You won!';
@@ -118,6 +119,7 @@ const checkWin = () => {
 
 //---------------------- Main ----------------------//
 
+// Initialize phrase to guess
 let phraseToGuess = getRandomPhraseAsArray(phrases);
 addPhraseToDisplay(phraseToGuess);
 

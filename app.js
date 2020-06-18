@@ -3,6 +3,7 @@
 const qwerty = document.querySelector('#qwerty');
 const phrase = document.querySelector('#phrase');
 const startButton = document.querySelector('.btn__reset');
+const phraseUl = document.querySelector("#phrase ul");
 let missed = 0; 
 let phrases = [
     'A DIME A DOZEN',
@@ -54,11 +55,42 @@ function checkLetter(button) {
     return match;
 }
 
+// Change heart on display
 function changeHeart () {
-    const tries = document.querySelectorAll(".tries");
-    const loseHeart = document.querySelectorAll(".tries img");
-    loseHeart[0].src = "images/lostHeart.png";
-    tries[0].className = "";
+    const tries = document.querySelectorAll('.tries');
+    const heart = document.querySelectorAll('.tries img');
+    heart[0].src = 'images/lostHeart.png';
+    tries[0].className = "lostHeart";
+}
+
+// Reset game overlay
+function resetGame () {
+    const tries = document.querySelectorAll('.lostHeart');
+    const hearts = document.querySelectorAll('.lostHeart img');
+    const chosenButton = document.querySelectorAll('.chosen'); 
+    const displayLetter = document.querySelectorAll('.show');
+    const phraseList = document.querySelector('#phraseList');
+    const li = phraseList.querySelectorAll('li');
+
+    missed = 0;
+    phraseUl.textContent = "";
+    // reset shown letters
+    for (let i = 0; i < displayLetter.length; i++) {
+        displayLetter[i].classList.remove('show');
+    }
+    // reset clicked buttons
+    for (let i = 0; i < chosenButton.length; i++) {
+        chosenButton[i].classList.remove('chosen');
+        chosenButton[i].removeAttribute("disabled");
+    }
+    // reset live hearts
+    for (let i = 0; i < hearts.length; i++) {
+        hearts[i].src = 'images/liveHeart.png';
+        tries[i].className = 'tries';
+    }
+    // initalize new phrase to guess
+    let phraseToGuess = getRandomPhraseAsArray(phrases);
+    addPhraseToDisplay(phraseToGuess);
 }
 
 // Check if the game has been or lost
@@ -68,17 +100,21 @@ const checkWin = () => {
     const overlay = document.querySelector('#overlay');
     const title = document.querySelector('.title');
     if (shownLetters.length === letters.length) {
-        overlay.className += ' win';
+        overlay.className = 'win';
         title.textContent = 'You won!';
         overlay.style.display = 'flex';
+        startButton.textContent = 'Play Again';
+        resetGame();
     }
     if (missed > 4) {
-        overlay.className += ' lose';
+        overlay.className = 'lose';
         title.textContent = 'You lost!';
         overlay.style.display = 'flex';
+        startButton.textContent = 'Try Again';
+        resetGame();
     }
-
 }
+
 
 //---------------------- Main ----------------------//
 

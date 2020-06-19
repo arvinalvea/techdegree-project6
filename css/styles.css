@@ -55,6 +55,11 @@ button {
   transition: var(--transition);
 }
 
+a,
+#phrase {
+  font-family: 'Staatliches', cursive;
+}
+
 .main-container {
   display: flex;
   flex-direction: column;
